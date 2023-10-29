@@ -1,7 +1,7 @@
 ###############################################
 ### EMBEDDED TOMCAT CONFIGURATIONS ###
 ###############################################
-server.port=${PORT:8081}
+server.port=${PORT:8082}
 server.tomcat.threads.max = 1
 
 ###############################################
@@ -11,7 +11,7 @@ database.ip = ${DB_IP:localhost}
 database.port = ${DB_PORT:your-port}
 database.user = ${DB_USER:your-username}
 database.password = ${DB_PASSWORD:your-password}
-database.name = ${DB_DBNAME:energy-ms-users}
+database.name = ${DB_DBNAME:energy-ms-devices}
 
 spring.datasource.url = jdbc:mysql://${database.ip}:${database.port}/${database.name}?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
 spring.datasource.username = ${database.user}
