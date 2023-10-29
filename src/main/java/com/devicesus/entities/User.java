@@ -23,7 +23,7 @@ public class User {
     @Column(nullable = false, unique = true)
     UUID userId; // consistent with users microservice data
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     List<Device> devices;
 
     public User(UUID userId) {

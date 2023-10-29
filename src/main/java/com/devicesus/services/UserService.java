@@ -43,4 +43,21 @@ public class UserService {
         user.getDevices().add(device);
         return null;
     }
+
+    public Void removeDeviceFromUser(UserDeviceMappingDto userDeviceMappingDto) {
+        User user = this.userRepository.findByUserId(UUID.fromString(userDeviceMappingDto.getUserId()))
+                .orElseThrow(() -> new NoSuchElementException(USER_NOT_FOUND + userDeviceMappingDto.getUserId()));
+        Device device = this.deviceRepository.findById(UUID.fromString(userDeviceMappingDto.getDeviceId()))
+                .orElseThrow(() -> new NoSuchElementException(DEVICE_NOT_FOUND + userDeviceMappingDto.getDeviceId()));
+        if (user.getDevices().contains(device)) {
+            user.getDevices().remove(device);
+        }
+        else {
+            throw new NoSuchElementException(String
+                    .format("The user with id: %s does not own the device with id: %s",
+                            userDeviceMappingDto.getUserId(),
+                            userDeviceMappingDto.getDeviceId()));
+        }
+        return null;
+    }
 }

@@ -30,4 +30,9 @@ public class UserController {
     public ResponseEntity<Void> addDeviceToUser(@RequestBody UserDeviceMappingDto userDeviceMappingDto) {
         return new ResponseEntity<>(this.userService.addDeviceToUser(userDeviceMappingDto), HttpStatus.OK);
     }
+
+    @PutMapping("/removeDeviceFromUser")
+    public ResponseEntity<Void> removeDeviceFromUser(@RequestBody UserDeviceMappingDto userDeviceMappingDto) {
+        return new ResponseEntity<>(this.userService.removeDeviceFromUser(userDeviceMappingDto), HttpStatus.OK);
+    }
 }
