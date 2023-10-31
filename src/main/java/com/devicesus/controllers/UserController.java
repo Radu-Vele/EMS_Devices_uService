@@ -1,5 +1,6 @@
 package com.devicesus.controllers;
 
+import com.devicesus.dto.DeviceDto;
 import com.devicesus.dto.UserDeviceMappingDto;
 import com.devicesus.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -8,11 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@CrossOrigin
 public class UserController {
     private final UserService userService;
 
@@ -34,5 +37,10 @@ public class UserController {
     @PutMapping("/removeDeviceFromUser")
     public ResponseEntity<Void> removeDeviceFromUser(@RequestBody UserDeviceMappingDto userDeviceMappingDto) {
         return new ResponseEntity<>(this.userService.removeDeviceFromUser(userDeviceMappingDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllDevices")
+    public ResponseEntity<List<DeviceDto>> getAllDevicesForUser(@RequestParam String id) {
+        return new ResponseEntity<>(this.userService.getAllDevicesForUser(id), HttpStatus.OK);
     }
 }

@@ -18,6 +18,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/devices")
 @RequiredArgsConstructor
+@CrossOrigin
 public class DeviceController {
     private final DeviceService deviceService;
 
@@ -39,5 +40,10 @@ public class DeviceController {
     @PutMapping("/edit")
     public ResponseEntity<Void> editDevice(@RequestBody DeviceDto deviceNewData) {
         return new ResponseEntity<>(deviceService.edit(deviceNewData), HttpStatus.OK);
+    }
+
+    @GetMapping("/getDetailsById")
+    public ResponseEntity<DeviceDto> getDetailsById(@RequestParam String id) {
+        return new ResponseEntity<>(deviceService.getDetailsById(id), HttpStatus.OK);
     }
 }

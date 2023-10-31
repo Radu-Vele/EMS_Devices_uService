@@ -47,4 +47,10 @@ public class DeviceService {
         device.setMaxHourlyEnergyConsumption(deviceNewData.getMaxHourlyEnergyConsumption());
         return null;
     }
+
+    public DeviceDto getDetailsById(String id) {
+        Device device = this.deviceRepository.findById(UUID.fromString(id))
+                .orElseThrow(() -> new NoSuchElementException(DEVICE_NOT_FOUND + id));
+        return mapper.map(device, DeviceDto.class);
+    }
 }

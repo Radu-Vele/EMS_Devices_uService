@@ -7,9 +7,11 @@ import com.devicesus.entities.User;
 import com.devicesus.repositories.DeviceRepository;
 import com.devicesus.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -22,6 +24,7 @@ import static com.devicesus.constants.ExceptionMessages.USER_NOT_FOUND;
 public class UserService {
     private final UserRepository userRepository;
     private final DeviceRepository deviceRepository;
+    private final ModelMapper mapper;
 
     public UUID register(String id) {
         return this.userRepository.save(new User(UUID.fromString(id)))
@@ -59,5 +62,14 @@ public class UserService {
                             userDeviceMappingDto.getDeviceId()));
         }
         return null;
+    }
+
+    public List<DeviceDto> getAllDevicesForUser(String id) {
+        User user = this.userRepository.findByUserId(UUID.fromString(id))
+                .orElseThrow(() -> new NoSuchElementException(USER_NOT_FOUND +id));
+        return user.getDevices().stream()
+                .map(device -> this.mapper.map(device, DeviceDto.class))
+                .toList();
+
     }
 }
