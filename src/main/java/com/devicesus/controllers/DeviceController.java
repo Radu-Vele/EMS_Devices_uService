@@ -3,6 +3,7 @@ package com.devicesus.controllers;
 import com.devicesus.dto.DeviceCreatedDto;
 import com.devicesus.dto.DeviceDto;
 import com.devicesus.services.DeviceService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +24,12 @@ public class DeviceController {
     private final DeviceService deviceService;
 
     @PostMapping("/create")
-    public ResponseEntity<UUID> createDevice(@RequestBody @Valid DeviceCreatedDto deviceCreatedDto) {
+    public ResponseEntity<UUID> createDevice(@RequestBody @Valid DeviceCreatedDto deviceCreatedDto) throws JsonProcessingException {
         return new ResponseEntity<>(deviceService.create(deviceCreatedDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/deleteById")
-    public ResponseEntity<?> deleteById(@RequestParam String id) {
+    public ResponseEntity<?> deleteById(@RequestParam String id) throws Exception {
         return new ResponseEntity<>(deviceService.deleteById(id), HttpStatus.OK);
     }
 
@@ -38,7 +39,7 @@ public class DeviceController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<Void> editDevice(@RequestBody DeviceDto deviceNewData) {
+    public ResponseEntity<Void> editDevice(@RequestBody DeviceDto deviceNewData) throws Exception {
         return new ResponseEntity<>(deviceService.edit(deviceNewData), HttpStatus.OK);
     }
 

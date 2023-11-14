@@ -8,6 +8,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Device {
@@ -21,5 +22,5 @@ public class Device {
     private String address;
 
     @Column(nullable = false)
-    private Long maxHourlyEnergyConsumption;
+    private Double maxHourlyEnergyConsumption;
 }

@@ -13,5 +13,5 @@ public class DeviceCreatedDto {
     private String description;
     private String address;
     // add IP address validator (IPv6 or IPv4)
-    private Long maxHourlyEnergyConsumption;
+    private Double maxHourlyEnergyConsumption;
 }
