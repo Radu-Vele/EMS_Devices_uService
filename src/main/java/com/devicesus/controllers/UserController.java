@@ -3,6 +3,7 @@ package com.devicesus.controllers;
 import com.devicesus.dto.DeviceDto;
 import com.devicesus.dto.UserDeviceMappingDto;
 import com.devicesus.services.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,17 +26,17 @@ public class UserController {
     }
 
     @DeleteMapping("/removeUserAndMapping")
-    public ResponseEntity<Void> removeUserAndMapping(@RequestParam String id) {
+    public ResponseEntity<Void> removeUserAndMapping(@RequestParam String id) throws JsonProcessingException {
         return new ResponseEntity<>(this.userService.delete(id), HttpStatus.OK);
     }
 
     @PutMapping("/addDeviceToUser")
-    public ResponseEntity<Void> addDeviceToUser(@RequestBody UserDeviceMappingDto userDeviceMappingDto) {
+    public ResponseEntity<Void> addDeviceToUser(@RequestBody UserDeviceMappingDto userDeviceMappingDto) throws JsonProcessingException {
         return new ResponseEntity<>(this.userService.addDeviceToUser(userDeviceMappingDto), HttpStatus.OK);
     }
 
     @PutMapping("/removeDeviceFromUser")
-    public ResponseEntity<Void> removeDeviceFromUser(@RequestBody UserDeviceMappingDto userDeviceMappingDto) {
+    public ResponseEntity<Void> removeDeviceFromUser(@RequestBody UserDeviceMappingDto userDeviceMappingDto) throws JsonProcessingException {
         return new ResponseEntity<>(this.userService.removeDeviceFromUser(userDeviceMappingDto), HttpStatus.OK);
     }
 

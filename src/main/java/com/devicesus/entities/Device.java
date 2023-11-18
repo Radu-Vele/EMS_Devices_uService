@@ -23,4 +23,7 @@ public class Device {
 
     @Column(nullable = false)
     private Double maxHourlyEnergyConsumption;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User owner = null;
 }

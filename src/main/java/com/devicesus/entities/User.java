@@ -18,7 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.UUID)
     @Column(columnDefinition = "BINARY(16)")
-    UUID id;
+    UUID id; // TODO: can remove and only use the user id as Id
 
     @Column(nullable = false, unique = true)
     UUID userId; // consistent with users microservice data

@@ -6,6 +6,7 @@ import com.devicesus.dto.DeviceDto;
 import com.devicesus.entities.Device;
 import com.devicesus.messaging.DeviceChangeSender;
 import com.devicesus.repositories.DeviceRepository;
+import com.devicesus.utils.DeviceUtils;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,25 +31,18 @@ public class DeviceService {
     private final DeviceChangeSender deviceChangeSender;
     private final ObjectMapper objectMapper;
 
-    private String formatDeviceChangeToJsonString(Device changedDevice) throws JsonProcessingException {
-        this.objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        return objectMapper.writeValueAsString(DeviceChangeMessageDto.builder()
-                .deviceId(changedDevice.getId())
-                .maxHourlyConsumption(changedDevice.getMaxHourlyEnergyConsumption()));
-    }
-
     public UUID create(DeviceCreatedDto deviceCreatedDto) throws JsonProcessingException {
         Device createdDevice = deviceRepository
                 .save(mapper.map(deviceCreatedDto, Device.class));
         this.deviceChangeSender.send(
-                formatDeviceChangeToJsonString(createdDevice));
+                DeviceUtils.formatDeviceChangeToJsonString(this.objectMapper, createdDevice));
         return createdDevice.getId();
     }
 
     public Void deleteById(String id) throws NoSuchElementException, JsonProcessingException {
         // TODO: [bug if I call when device belongs to user] add mechanism for removing device from user
         deviceRepository.deleteById(UUID.fromString(id));
-        deviceChangeSender.send(formatDeviceChangeToJsonString(Device.builder()
+        deviceChangeSender.send(DeviceUtils.formatDeviceChangeToJsonString(this.objectMapper, Device.builder()
                 .id(UUID.fromString(id))
                 .maxHourlyEnergyConsumption(-1.0)
                 .build()
@@ -70,7 +64,7 @@ public class DeviceService {
         device.setDescription(deviceNewData.getDescription());
         device.setMaxHourlyEnergyConsumption(deviceNewData.getMaxHourlyEnergyConsumption());
         if (sendUpdate) {
-            this.deviceChangeSender.send(formatDeviceChangeToJsonString(device));
+            this.deviceChangeSender.send(DeviceUtils.formatDeviceChangeToJsonString(this.objectMapper, device));
         }
         return null;
     }

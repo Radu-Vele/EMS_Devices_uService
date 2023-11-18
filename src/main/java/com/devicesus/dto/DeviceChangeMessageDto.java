@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 @Data
@@ -15,4 +14,5 @@ import java.util.UUID;
 public class DeviceChangeMessageDto {
     private UUID deviceId;
     private Double maxHourlyConsumption;
+    private UUID ownerId;
 }
