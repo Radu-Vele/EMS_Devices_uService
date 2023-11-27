@@ -33,7 +33,7 @@ public class UserService {
 
     public UUID register(String id) {
         return this.userRepository.save(new User(UUID.fromString(id)))
-                .getId();
+                .getUserId();
     }
 
     public Void delete(String userId) throws JsonProcessingException {

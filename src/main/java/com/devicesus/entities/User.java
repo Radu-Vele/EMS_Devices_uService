@@ -16,11 +16,7 @@ import java.util.UUID;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.UUID)
-    @Column(columnDefinition = "BINARY(16)")
-    UUID id; // TODO: can remove and only use the user id as Id
-
-    @Column(nullable = false, unique = true)
+    @Column(columnDefinition = "BINARY(16)", nullable = false, unique = true)
     UUID userId; // consistent with users microservice data
 
     @OneToMany(fetch = FetchType.LAZY)
