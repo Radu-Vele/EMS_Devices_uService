@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
-
-// TODO: add security (verify JWT from front end)
-
 @Controller
 @RequestMapping("/devices")
 @RequiredArgsConstructor

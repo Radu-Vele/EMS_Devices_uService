@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/getAllDevices")
-    public ResponseEntity<List<DeviceDto>> getAllDevicesForUser(@RequestParam String id) {
+    public ResponseEntity<List<DeviceDto>> getAllDevicesForUser(@RequestParam String id) { // TODO: extract username from token / offer a new endpoint with getMyDevices
         return new ResponseEntity<>(this.userService.getAllDevicesForUser(id), HttpStatus.OK);
     }
 }
